@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use App\Post;
@@ -21,13 +22,25 @@ class AdminController extends Controller
 
     public function show_add_post()
     {
-        return view('add-post');
+        $id = Auth::id();
+
+        if ($id != null){
+            return view('add-post');
+        } else {
+            return redirect('login');
+        }
     }
 
     public function show_edit_post($id)
     {
-        $res = Post::where('id_post', $id)->first();
-        return view('edit-post')->with('res', $res);
+        $id = Auth::id();
+
+        if ($id != null){
+            $res = Post::where('id_post', $id)->first();
+            return view('edit-post')->with('res', $res);
+        } else {
+            return redirect('login');
+        }
     }
 
     /**
@@ -36,10 +49,20 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function insert(Request $request)
-    {
-        $data = $request->all();
+    {   
+        $id = Post::max("id_post");
+
         $row = new Post;
-        $row->fill($request->all());
+        $row->id_post = $id + 1;
+        $row->id_user = Auth::id();
+        $row->id_tags = 2;
+        $row->id_category = 9;
+        $row->title_post = $request->input("title_post");
+        $row->content_post = $request->input("content_post");
+        $row->image_post = $request->input("image_post");
+        $row->publishdate_post = date("Y-m-d");
+        $row->totalview_post = 0;
+        // $row->fill($request->all());
         $row->save();
     }
 
@@ -85,7 +108,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $row = Post::where('id_post', $id)->update(['content_post' => $request->input('content_post')]);
+        $row = Post::where('id_post', $id)->update(['title_post' => $request->input('title_post'), 'content_post' => $request->input('content_post')]);
     }
 
     /**

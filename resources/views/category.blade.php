@@ -51,7 +51,7 @@
 										</div>
 										<h3 class="post-title"><a href="blog-post/{{ $row->id_post }}">{{ $row->title_post }}</a></h3>
 										<ul class="post-meta">
-											<li><a href="author">{{ $row->email }}</a></li>
+											<li><a href="author">{{ $row->name }}</a></li>
 											<li>{{ $row->publishdate }}</li>
 										</ul>
 									</div>

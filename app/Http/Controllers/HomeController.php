@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
+use App\User;
+
 class HomeController extends Controller
 {
     /**
@@ -24,7 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('author');
+        // $id = Auth::id();
+        // $res = User::where("id", $id)->first();
+
+        // return view('author')->with("res", $res);
+        return redirect('author');
     }
     public function store(Request $request)
     {

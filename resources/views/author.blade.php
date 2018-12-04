@@ -7,15 +7,18 @@
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10 text-center">
 				<div class="author">
-					<img class="author-img center-block" src="./img/avatar-1.jpg" alt="">
-					<h1 class="text-uppercase">John Doe</h1>
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					<img class="author-img center-block" src="./img/avatar-2.jpg" alt="">
+					<h1 class="text-uppercase">{{ $res->name }}</h1>
+					<p class="lead">{{ $res->email }}</p>
 					<ul class="author-social">
 						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
 						<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
 						<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-					</ul>
+					</ul><br/>
+					<a href="edit-profile"><button type="button" class="primary-button">Edit Profile</button></a>
+					<a href="add-post"><button type="button" class="primary-button">Add New Post</button></a>
+					<a href="logout"><button type="button" class="primary-button">Log Out</button></a>
 				</div>
 			</div>
 		</div>
@@ -32,97 +35,27 @@
 			<!-- row -->
 			<div class="row">
 				<div class="col-md-8">
+					@foreach($res2 as $row)
 					<!-- post -->
 					<div class="post post-row">
-						<a class="post-img" href="blog-post"><img src="./img/post-13.jpg" alt=""></a>
+						<a class="post-img" href="blog-post"><img src="{{ $res->image_post }}" alt=""></a>
 						<div class="post-body">
 							<div class="post-category">
 								<a href="category">Travel</a>
 								<a href="category">Lifestyle</a>
 							</div>
-							<h3 class="post-title"><a href="blog-post">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
+							<h3 class="post-title"><a href="blog-post">{{ $row->title_post }}</a></h3>
 							<ul class="post-meta">
-								<li><a href="author">John Doe</a></li>
-								<li>20 April 2018</li>
+								<li><a href="author">{{ $res->name }}</a></li>
+								<li>{{ $row->publishdate_post }}</li>
 							</ul>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
+							<input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+							<a href="edit-post/{{ $row->id_post }}"><button type="button" class="primary-button">Edit</button></a>
+							<button type="button" class="primary-button" onclick="deletepost({{ $row->id_post }})">Delete</button>
 						</div>
 					</div>
 					<!-- /post -->
-
-					<!-- post -->
-					<div class="post post-row">
-						<a class="post-img" href="blog-post"><img src="./img/post-1.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category">Travel</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-							<ul class="post-meta">
-								<li><a href="author">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-						</div>
-					</div>
-					<!-- /post -->
-
-					<!-- post -->
-					<div class="post post-row">
-						<a class="post-img" href="blog-post"><img src="./img/post-5.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category">Lifestyle</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-							<ul class="post-meta">
-								<li><a href="author">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-						</div>
-					</div>
-					<!-- /post -->
-
-					<!-- post -->
-					<div class="post post-row">
-						<a class="post-img" href="blog-post"><img src="./img/post-6.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category">Fashion</a>
-								<a href="category">Lifestyle</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-							<ul class="post-meta">
-								<li><a href="author">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-						</div>
-					</div>
-					<!-- /post -->
-
-					<!-- post -->
-					<div class="post post-row">
-						<a class="post-img" href="blog-post"><img src="./img/post-7.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-category">
-								<a href="category">Health</a>
-								<a href="category">Lifestyle</a>
-							</div>
-							<h3 class="post-title"><a href="blog-post">Ne bonorum praesent cum, labitur persequeris definitionem quo cu?</a></h3>
-							<ul class="post-meta">
-								<li><a href="author">John Doe</a></li>
-								<li>20 April 2018</li>
-							</ul>
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam...</p>
-						</div>
-					</div>
-					<!-- /post -->
-
-					<div class="section-row loadmore text-center">
-						<a href="#" class="primary-button">Load More</a>
-					</div>
+					@endforeach
 				</div>
 
 				<div class="col-md-4">
@@ -203,4 +136,24 @@
 	</div>
 	<!-- /SECTION -->
 
+	@endsection
+
+	@section('js')
+	<script>
+		function deletepost(id){
+            var token = $('#_token').val();
+			// window.location.href = "insert-post";
+			$.ajax({
+				type: 'DELETE',
+				url: 'delete-post/' + id,
+                data: {
+                    _token: token
+                },
+				success: function(result){
+					alert("Delete Post Success!");
+					window.location.href = "author";
+				}
+			});
+		  }
+	</script>
 	@endsection

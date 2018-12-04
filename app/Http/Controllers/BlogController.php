@@ -22,7 +22,7 @@ class BlogController extends Controller
     public function getPost($id)
     {
         // $res = Post::where('id_post', $id)->first();
-        $res = Post::join('users', 'post.id_post', '=', 'users.id')->where('post.id_post', $id)->select('post.*', 'users.email')->first();
+        $res = Post::join('users', 'post.id_user', '=', 'users.id')->where('post.id_post', $id)->select('post.*', 'users.name')->first();
 
         return view('blog-post')->with("res", $res);
     }

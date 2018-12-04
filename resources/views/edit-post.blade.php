@@ -33,25 +33,14 @@
 					<input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
 							<div class="row">
 								<div class="col-md-12">
-									<div id="summernote" name="summernote">Hello Summernote</div>
-								</div>
-								<div class="col-md-12">
 									<div class="form-group">
-										<input class="input" type="email" name="email" placeholder="Email">
+										<input class="input" type="text" name="title" id="title" value="{{ $res->title_post }}" placeholder="Post Title">
 									</div>
 								</div>
 								<div class="col-md-12">
-									<div class="form-group">
-										<input class="input" type="text" name="subject" placeholder="Subject">
-									</div>
+									<div id="summernote" name="summernote">Post Content</div>
 								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<textarea class="input" name="message" placeholder="Message"></textarea>
-									</div>
-									<button type="button" class="primary-button" onclick="updatepost()">Update</button>
-                                    <button type="button" class="primary-button" onclick="deletepost()">Delete this post</button>
-								</div>
+								<button type="button" class="primary-button" onclick="updatepost()">Update</button>
                             </div>
                             <div class="row">
                                 
@@ -77,6 +66,7 @@
 		  
 		  function updatepost(){
 			// var markupStr =$(".summernote").summernote("code");
+			var title = $('#title').val();
 			var content = $('.note-editable').text();
 			console.log(content);
 			var token = $('#_token').val();
@@ -89,27 +79,17 @@
 					id_user: 1,
 					id_tags: 2,
 					id_category:9,
-					title_post:"test",
+					title_post:title,
 					content_post:content,
 					image_post:"da",
 					publishdate_post:2018-11-01,
 					totalview_post:0,
 					_token: token
+				},
+				success: function(result){
+					alert("Edit Post Success!");
+					window.location.href = "/author";
 				}
-			});
-		  }
-
-          function deletepost(){
-			// var markupStr =$(".summernote").summernote("code");
-            var id_post = $('#id_post').val();
-            var token = $('#_token').val();
-			// window.location.href = "insert-post";
-			$.ajax({
-				type: 'DELETE',
-				url: '../delete-post/' + id_post,
-                data: {
-                    _token: token
-                }
 			});
 		  }
 	</script>

@@ -22,7 +22,7 @@ class CategoryController extends Controller
         //     echo "connected successfully to database ".DB::connection()->getDatabaseName();
         // }
         // $res = Post::where('id_post', 1)->get();
-        $res = Post::join('users', 'post.id_user', '=', 'users.id')->select('post.*', 'users.email')->get();
+        $res = Post::join('users', 'post.id_user', '=', 'users.id')->select('post.*', 'users.name')->get();
 
         return view('category')->with("res", $res);
     }

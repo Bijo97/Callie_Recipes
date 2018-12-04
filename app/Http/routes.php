@@ -15,7 +15,7 @@
 //     return view('index');
 // });
 
-Route::get('/home','IndexController@index');
+Route::get('/','IndexController@index');
 Route::get('blog-post','BlogController@index');
 Route::get('blog-post/{id}','BlogController@getPost');
 Route::get('author','IndexController@show_author');
@@ -43,4 +43,4 @@ Route::get('foo', function () {
 
 Route::auth();
 
-Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');

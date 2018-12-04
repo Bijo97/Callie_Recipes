@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
+use App\User;
+use App\Post;
 
 class IndexController extends Controller
 {
@@ -37,7 +40,16 @@ class IndexController extends Controller
 
     public function show_author()
     {
-        return view('author');
+        $id = Auth::id();
+
+        if ($id != null){
+            $res = User::where("id", $id)->first();
+            $res2 = Post::where('id_user', $id)->orderBy('publishdate_post', 'desc')->get();
+
+            return view('author')->with("res", $res)->with("res2", $res2);
+        } else {
+            return redirect('login');
+        }
     }
 
     public function show_blank()
