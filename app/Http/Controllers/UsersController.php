@@ -12,7 +12,7 @@ use App\User;
 class UsersController extends Controller
 {
     // public function __construct(){
-    //     $this->middleware('auth:user');
+    //     $this->middleware('auth');
     // }
     public function index(){
         return view("login-page");
@@ -23,7 +23,10 @@ class UsersController extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication passed...
-            return redirect()->intended('/');
+            echo "hello";
+            return redirect()->intended('/author');
+        } else {
+            echo "fail";
         }
     }
 }
