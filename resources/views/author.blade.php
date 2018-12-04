@@ -16,7 +16,7 @@
 						<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
 						<li><a href="#"><i class="fa fa-instagram"></i></a></li>
 					</ul><br/>
-					<a href="edit-profile"><button type="button" class="primary-button">Edit Profile</button></a>
+					<a href="edit-author/{{ $res->id }}"><button type="button" class="primary-button">Edit Profile</button></a>
 					<a href="add-post"><button type="button" class="primary-button">Add New Post</button></a>
 					<a href="logout"><button type="button" class="primary-button">Log Out</button></a>
 				</div>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use App\Post;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -94,9 +95,21 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit_author($id)
     {
-        //
+        $id = Auth::id();
+
+        if ($id != null){
+            $res = User::where('id', $id)->first();
+            return view('edit-author')->with('res', $res);
+        } else {
+            return redirect('login');
+        }
+    }
+
+    public function update_author(Request $request, $id)
+    {
+        $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email')]);
     }
 
     /**

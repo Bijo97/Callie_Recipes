@@ -30,6 +30,8 @@ Route::get('login-process', 'UsersController@login');
 Route::post('insert-post', 'AdminController@insert');
 Route::put('update-post/{id}', 'AdminController@update');
 Route::delete('delete-post/{id}', 'AdminController@delete');
+Route::get('edit-author/{id}', 'AdminController@edit_author');
+Route::put('update-author/{id}', 'AdminController@update_author');
 
 
 Route::get('foo', function () {
