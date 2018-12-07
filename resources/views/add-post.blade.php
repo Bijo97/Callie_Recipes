@@ -64,7 +64,7 @@
 		  function insertpost(){
 			// var markupStr =$(".summernote").summernote("code");
 			var title = $('#title').val();
-			var content = $('.note-editable').text();
+			var content = $('.note-editable').html();
 			console.log(content);
 			var token = $('#_token').val();
 			// window.location.href = "insert-post";

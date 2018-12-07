@@ -25,7 +25,7 @@
 				<div class="col-md-12">
 					<div class="section-row">
 						<div class="section-title">
-							<h2 class="title">Post your recipe</h2>
+							<h2 class="title">Edit Your Post</h2>
 						</div>
                         <input type="hidden" name="temp" id="temp" value="{{ $res->content_post }}" />
 					<form>
@@ -61,13 +61,13 @@
 	<script>
 		$(document).ready(function() {
 			$('#summernote').summernote();
-            $('.note-editable').text($('#temp').val());
+            $('.note-editable').html($('#temp').val());
 		  });
 		  
 		  function updatepost(){
 			// var markupStr =$(".summernote").summernote("code");
 			var title = $('#title').val();
-			var content = $('.note-editable').text();
+			var content = $('.note-editable').html();
 			console.log(content);
 			var token = $('#_token').val();
             var id_post = $('#id_post').val();

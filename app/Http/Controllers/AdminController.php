@@ -32,12 +32,12 @@ class AdminController extends Controller
         }
     }
 
-    public function show_edit_post($id)
+    public function show_edit_post($id_post)
     {
         $id = Auth::id();
 
         if ($id != null){
-            $res = Post::where('id_post', $id)->first();
+            $res = Post::where('id_post', $id_post)->first();
             return view('edit-post')->with('res', $res);
         } else {
             return redirect('login');
@@ -95,12 +95,12 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit_author($id)
+    public function edit_author($id_user)
     {
         $id = Auth::id();
 
         if ($id != null){
-            $res = User::where('id', $id)->first();
+            $res = User::where('id', $id_user)->first();
             return view('edit-author')->with('res', $res);
         } else {
             return redirect('login');
