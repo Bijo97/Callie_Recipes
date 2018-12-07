@@ -93,6 +93,7 @@ class AdminController extends Controller
         //     echo "bad";
         // }
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -166,17 +167,19 @@ class AdminController extends Controller
             $image_resize->save($img_name);
            
             $image_circle = Image::make($image->getRealPath());
+            $image_circle->resize(100,100);
             $image_circle->circle(100, 100, 100, function ($draw) {
                 $draw->border(5, '000000');
             });      
-            $image_circle->save('img/'."avatar_".$filename);
+            $image_name_circle = 'img/'."avatar_".$filename;
+            $image_circle->save($image_name_circle);
 
             // $image_pixelate = Image::make($image->getRealPath()); 
             // $image_pixelate->resize(250, 250);
             // $image_pixelate->pixelate(12);
             // $image_pixelate->save('img/'."pixelate_".$filename);
             // return $img_name;   
-            $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email'),'image_user'=>$image_circle]);
+            $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email'),'image_user'=>$image_name_circle]);
         }
     }
 
@@ -189,7 +192,23 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $row = Post::where('id_post', $id)->update(['title_post' => $request->input('title_post'), 'content_post' => $request->input('content_post')]);
+        if ($image = $request->file('image_post')) {
+            $filename = $image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());              
+            $image_resize->resize(250, 250);
+            $img_name = "img/".$filename;
+            $image_resize->save($img_name);
+
+            $image_pixelate = Image::make($image->getRealPath()); 
+            $image_pixelate->resize(250, 250);
+            $image_pixelate->pixelate(12);
+            $image_pixelate->save('img/'."pixelate_".$filename);
+
+            $row = Post::where('id_post', $id)->update(['title_post' => $request->input('title_post'), 'content_post' => $request->input('content_post'),'image_post'=>$filename]);
+            echo "good";
+        } else {
+            echo "bad";
+        }
     }
 
     /**

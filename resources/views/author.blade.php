@@ -38,7 +38,7 @@
 					@foreach($res2 as $row)
 					<!-- post -->
 					<div class="post post-row">
-						<a class="post-img" href="blog-post"><img src="../{{ $row->image_post }}" alt=""></a>
+						<a class="post-img" href="blog-post"><img src="img/{{ $row->image_post }}" alt=""></a>
 						<div class="post-body">
 							<div class="post-category">
 								<a href="category">Travel</a>

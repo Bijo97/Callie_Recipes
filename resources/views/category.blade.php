@@ -44,7 +44,7 @@
 						@foreach($res as $row)
 							<div class="col-md-6">
 								<div class="post">
-									<a class="post-img" href="blog-post/{{ $row->id_post }}"><img src="{{ $row->image_post }}" alt=""></a>
+									<a class="post-img" href="blog-post/{{ $row->id_post }}"><img src="img/{{ $row->image_post }}" alt=""></a>
 									<div class="post-body">
 										<div class="post-category">
 											<a href="category">Lifestyle</a>

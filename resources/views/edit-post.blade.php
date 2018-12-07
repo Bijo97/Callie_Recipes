@@ -40,8 +40,14 @@
 								<div class="col-md-12">
 									<div id="summernote" name="summernote">Post Content</div>
 								</div>
+								<div class="col-md-12">
+										Select image to upload:
+										<input type="file" name="imagefile" id="imagefile"><br/>
+									</div>
+								</div>
 								<button type="button" class="primary-button" onclick="updatepost()">Update</button>
-                            </div>
+							</div>
+							
                             <div class="row">
                                 
                             </div>
@@ -72,23 +78,25 @@
 			var token = $('#_token').val();
             var id_post = $('#id_post').val();
 			// window.location.href = "insert-post";
+			var file = document.getElementById('imagefile').files[0];
+			var formData = new FormData();
+			formData.append('image_post', file);
+			formData.append('title_post', title);
+			formData.append('content_post', content);
+			formData.append('_token', token);
 			$.ajax({
-				type: 'PUT',
-				url: '../update-post/' + id_post,
-				data: {
-					id_user: 1,
-					id_tags: 2,
-					id_category:9,
-					title_post:title,
-					content_post:content,
-					image_post:"da",
-					publishdate_post:2018-11-01,
-					totalview_post:0,
-					_token: token
-				},
+				type: 'POST',
+				url: '../update-post/'+id_post,
+				data: formData,
+				processData: false,
+				contentType: false,
 				success: function(result){
-					alert("Edit Post Success!");
-					window.location.href = "/author";
+					if (result == "good"){
+						alert("Update Post Success!");
+						window.location.href = "/author";
+					} else {
+						alert("Create Post Fail!");
+					}
 				}
 			});
 		  }

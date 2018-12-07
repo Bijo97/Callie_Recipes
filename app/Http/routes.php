@@ -28,7 +28,7 @@ Route::get('edit-post/{id}','AdminController@show_edit_post');
 Route::get('login-page', 'UsersController@index');
 Route::get('login-process', 'UsersController@login');
 Route::post('insert-post', 'AdminController@insert');
-Route::put('update-post/{id}', 'AdminController@update');
+Route::post('update-post/{id}', 'AdminController@update');
 Route::delete('delete-post/{id}', 'AdminController@delete');
 Route::get('edit-author/{id}', 'AdminController@edit_author');
 Route::post('update-author/{id}', 'AdminController@update_author');
