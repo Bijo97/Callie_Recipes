@@ -10,6 +10,8 @@ use App\Http\Requests;
 use App\Post;
 use App\User;
 
+use Intervention\Image\ImageManagerStatic as Image;
+
 class AdminController extends Controller
 {
     /**
@@ -52,10 +54,11 @@ class AdminController extends Controller
      */
     public function insert(Request $request)
     {   
-        if ($file = $request->file('image_post')){
-            $name = $file->getClientOriginalName();
-            $file->move('img', $name);
-            // $input['your_file'] = $name;
+        if ($image = $request->file('image_post')) {
+            $filename = $image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());              
+            $image_resize->resize(250, 250);
+            $image_resize->save('img/'.$filename);
 
             $id = Post::max("id_post");
             $row = new Post;
@@ -65,7 +68,7 @@ class AdminController extends Controller
             $row->id_category = 9;
             $row->title_post = $request->input("title_post");
             $row->content_post = $request->input("content_post");
-            $row->image_post = "../img/".$name;
+            $row->image_post = "../img/".$filename;
             $row->publishdate_post = date("Y-m-d");
             $row->totalview_post = 0;
             // $row->fill($request->all());
@@ -75,6 +78,15 @@ class AdminController extends Controller
         } else {
             echo "bad";
         }
+
+        // if ($file = $request->file('image_post')){
+        //     $name = $file->getClientOriginalName();
+        //     $file->move('img', $name);
+        //     // $input['your_file'] = $name;
+        //     echo "good";
+        // } else {
+        //     echo "bad";
+        // }
     }
 
     /**
