@@ -122,6 +122,25 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function checkImage($image){
+        
+        if($image){
+            $filename = $image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());              
+            $image_resize->resize(250, 250);
+            $img_name = "img/".$filename;
+            $image_resize->save($img_name);
+           
+            // $image_pixelate = Image::make($image->getRealPath()); 
+            // $image_pixelate->resize(250, 250);
+            // $image_pixelate->pixelate(12);
+            // $image_pixelate->save('img/'."pixelate_".$filename);
+            return $img_name;   
+        }
+    }
+
+
     public function edit_author($id_user)
     {
         $id = Auth::id();
@@ -135,8 +154,30 @@ class AdminController extends Controller
     }
 
     public function update_author(Request $request, $id)
-    {
-        $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email')]);
+    {   
+        // $a = $request->file('image_user');
+        // $img_name = checkImage($a);
+
+        if($image = $request->file('image_user')){
+            $filename = $image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());              
+            $image_resize->resize(250, 250);
+            $img_name = "img/".$filename;
+            $image_resize->save($img_name);
+           
+            $image_circle = Image::make($image->getRealPath());
+            $image_circle->circle(100, 100, 100, function ($draw) {
+                $draw->border(5, '000000');
+            });      
+            $image_circle->save('img/'."avatar_".$filename);
+
+            // $image_pixelate = Image::make($image->getRealPath()); 
+            // $image_pixelate->resize(250, 250);
+            // $image_pixelate->pixelate(12);
+            // $image_pixelate->save('img/'."pixelate_".$filename);
+            // return $img_name;   
+            $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email'),'image_user'=>$image_circle]);
+        }
     }
 
     /**
