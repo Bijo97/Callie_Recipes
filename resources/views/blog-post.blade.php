@@ -47,7 +47,7 @@
 					<!-- /post share -->
 					
 					<div class="section-row">
-						<img src="{{ $res->image_post }}"><br/>
+						<img src="../img/{{ $res->image_post }}" onmouseover="rollover(this, '{{ $res->image_post }}')" onmouseout="rollout(this, '{{ $res->image_post }}')"><br/>
 						{!! $res->content_post !!}
 					</div>
 
@@ -427,4 +427,22 @@
 
 	
 
+	@endsection
+
+	@section('js')
+		<script>
+			function rollover(my_image, filename)
+			{
+
+				my_image.src = "../img/pixelate_" + filename;
+
+			}	
+
+			function rollout(my_image, filename)
+			{
+
+				my_image.src = "../img/" + filename;
+
+			}	
+		</script>
 	@endsection

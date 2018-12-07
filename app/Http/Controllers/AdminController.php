@@ -60,6 +60,11 @@ class AdminController extends Controller
             $image_resize->resize(250, 250);
             $image_resize->save('img/'.$filename);
 
+            $image_pixelate = Image::make($image->getRealPath()); 
+            $image_pixelate->resize(250, 250);
+            $image_pixelate->pixelate(12);
+            $image_pixelate->save('img/'."pixelate_".$filename);
+
             $id = Post::max("id_post");
             $row = new Post;
             $row->id_post = $id + 1;
@@ -68,7 +73,7 @@ class AdminController extends Controller
             $row->id_category = 9;
             $row->title_post = $request->input("title_post");
             $row->content_post = $request->input("content_post");
-            $row->image_post = "../img/".$filename;
+            $row->image_post = $filename;
             $row->publishdate_post = date("Y-m-d");
             $row->totalview_post = 0;
             // $row->fill($request->all());
