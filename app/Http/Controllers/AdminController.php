@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use App\Http\Requests;
 use App\Post;
@@ -51,20 +52,29 @@ class AdminController extends Controller
      */
     public function insert(Request $request)
     {   
-        $id = Post::max("id_post");
+        if ($file = $request->file('image_post')){
+            $name = $file->getClientOriginalName();
+            $file->move('img', $name);
+            // $input['your_file'] = $name;
 
-        $row = new Post;
-        $row->id_post = $id + 1;
-        $row->id_user = Auth::id();
-        $row->id_tags = 2;
-        $row->id_category = 9;
-        $row->title_post = $request->input("title_post");
-        $row->content_post = $request->input("content_post");
-        $row->image_post = $request->input("image_post");
-        $row->publishdate_post = date("Y-m-d");
-        $row->totalview_post = 0;
-        // $row->fill($request->all());
-        $row->save();
+            $id = Post::max("id_post");
+            $row = new Post;
+            $row->id_post = $id + 1;
+            $row->id_user = Auth::id();
+            $row->id_tags = 2;
+            $row->id_category = 9;
+            $row->title_post = $request->input("title_post");
+            $row->content_post = $request->input("content_post");
+            $row->image_post = "../img/".$name;
+            $row->publishdate_post = date("Y-m-d");
+            $row->totalview_post = 0;
+            // $row->fill($request->all());
+            $row->save();
+
+            echo "good";
+        } else {
+            echo "bad";
+        }
     }
 
     /**

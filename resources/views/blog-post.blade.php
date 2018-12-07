@@ -47,7 +47,7 @@
 					<!-- /post share -->
 					
 					<div class="section-row">
-						{{ $res->content_post }}
+						{!! $res->content_post !!}
 					</div>
 
 					<!-- post tags -->

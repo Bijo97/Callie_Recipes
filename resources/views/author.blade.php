@@ -44,7 +44,7 @@
 								<a href="category">Travel</a>
 								<a href="category">Lifestyle</a>
 							</div>
-							<h3 class="post-title"><a href="blog-post">{{ $row->title_post }}</a></h3>
+							<h3 class="post-title"><a href="blog-post/{{ $row->id_post }}">{{ $row->title_post }}</a></h3>
 							<ul class="post-meta">
 								<li><a href="author">{{ $res->name }}</a></li>
 								<li>{{ $row->publishdate_post }}</li>
