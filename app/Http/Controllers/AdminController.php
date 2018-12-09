@@ -160,8 +160,9 @@ class AdminController extends Controller
         // $img_name = checkImage($a);
 
         if($image = $request->file('image_user')){
-            $filename = $image->getClientOriginalName();
             
+            // $filename = $image->getClientOriginalName();
+           $filename = uniqid().'.png';
             $image_resize = Image::make($image->getRealPath())->encode('png', 100);  
            
             $image_resize->resize(100, 100);
