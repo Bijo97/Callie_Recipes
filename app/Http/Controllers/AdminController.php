@@ -161,25 +161,24 @@ class AdminController extends Controller
 
         if($image = $request->file('image_user')){
             $filename = $image->getClientOriginalName();
-            $image_resize = Image::make($image->getRealPath());              
-            $image_resize->resize(250, 250);
-            $img_name = "img/".$filename;
-            $image_resize->save($img_name);
+            
+            $image_resize = Image::make($image->getRealPath())->encode('png', 100);  
            
-            $image_circle = Image::make($image->getRealPath());
-            $image_circle->resize(100,100);
-            $image_circle->circle(100, 100, 100, function ($draw) {
-                $draw->border(5, '000000');
-            });      
-            $image_name_circle = 'img/'."avatar_".$filename;
-            $image_circle->save($image_name_circle);
+            $image_resize->resize(100, 100);
+            
+            $width = $image_resize->getWidth();
+            $height = $image_resize->getHeight();
+            $mask = Image::canvas($width,$height); 
+            
+            $mask->circle($width, $width/2, $height/2, function ($draw) {
+                $draw->background('#fff');
+            });
 
-            // $image_pixelate = Image::make($image->getRealPath()); 
-            // $image_pixelate->resize(250, 250);
-            // $image_pixelate->pixelate(12);
-            // $image_pixelate->save('img/'."pixelate_".$filename);
-            // return $img_name;   
-            $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email'),'image_user'=>$image_name_circle]);
+            $name_circle = 'circle_'.$filename;
+            $image_resize->mask($mask, false);
+            $image_resize->save('img/'.$name_circle);
+
+            $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email'),'image_user'=>$name_circle]);
         }
     }
 
