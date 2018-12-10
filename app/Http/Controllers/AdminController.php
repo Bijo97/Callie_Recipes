@@ -87,7 +87,7 @@ class AdminController extends Controller
         // if ($file = $request->file('image_post')){
         //     $name = $file->getClientOriginalName();
         //     $file->move('img', $name);
-        //     // $input['your_file'] = $name;
+        //
         //     echo "good";
         // } else {
         //     echo "bad";
