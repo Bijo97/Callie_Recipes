@@ -11,15 +11,39 @@
             <tr>
                 <td>Name</td>
                 <td>Email</td>
+                <td>Action</td>
             </tr>
             @foreach($user_data as $u)
             <tr>
                 <td>{{$u->name}}</td>
                 <td>{{$u->email}}</td>
+                <td><input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+                            <a href="edit-author/{{ $u->id }}"><button type="button" class="primary-button">Edit</button></a>
+							<button type="button" class="primary-button" onclick="deleteuser({{ $u->id }})">Delete</button><br/></td>
             </tr>
             @endforeach
         </table>
     
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+    function deleteuser(id){
+        var token = $('#_token').val();
+		// window.location.href = "insert-post";
+		$.ajax({
+			type: 'DELETE',
+			url: 'delete-author/' + id,
+            data: {
+                 _token: token
+            },
+			success: function(result){
+				alert("Delete User Success!");
+				window.location.href = "excel_export";
+			}
+		});
+	}
+</script>
 @endsection
