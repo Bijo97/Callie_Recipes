@@ -163,10 +163,26 @@ class AdminController extends Controller
             
             // $filename = $image->getClientOriginalName();
            $filename = uniqid().'.png';
+           $watermark =  Image::make('img/logo.png');
             $image_resize = Image::make($image->getRealPath())->encode('png', 100);  
-           
+            // $img = File::get(url('img/logo.png'));
             $image_resize->resize(100, 100);
             
+            //#1
+            $watermarkSize = $image_resize->width() - 5; //size of the image minus 20 margins
+            //#2
+            $watermarkSize = $image_resize->width() / 2; //half of the image size
+            //#3
+            $resizePercentage = 10;//10% less then an actual image (play with this value)
+            $watermarkSize = round($image_resize->width() * ((100 - $resizePercentage) / 100), 2); //watermark will be $resizePercentage less then the actual width of the image
+
+            // resize watermark width keep height auto
+            $watermark->resize($watermarkSize, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+
+            //insert resized watermark to image center aligned
+            $image_resize->insert($watermark, 'center');
             $width = $image_resize->getWidth();
             $height = $image_resize->getHeight();
             $mask = Image::canvas($width,$height); 
@@ -176,7 +192,8 @@ class AdminController extends Controller
             });
 
             $name_circle = 'circle_'.$filename;
-            $image_resize->mask($mask, false);
+            //$image_resize->mask($mask, false);
+           
             $image_resize->save('img/'.$name_circle);
 
             $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email'),'image_user'=>$name_circle]);
