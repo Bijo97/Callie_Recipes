@@ -161,4 +161,9 @@ class AdminController extends Controller
     {
         $row = Post::where('id_post', $id)->delete();
     }
+
+    public function delete_author($id)
+    {
+        $row = User::where('id', $id)->delete();
+    }
 }
