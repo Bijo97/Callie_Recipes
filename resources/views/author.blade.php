@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10 text-center">
 				<div class="author">
-					<img class="author-img center-block" src="./img/avatar-2.jpg" alt="">
+					<img class="author-img center-block" src="../img/{{ $res->image_user }}" alt="">
 					<h1 class="text-uppercase">{{ $res->name }}</h1>
 					<p class="lead">{{ $res->email }}</p>
 					<ul class="author-social">
@@ -38,7 +38,7 @@
 					@foreach($res2 as $row)
 					<!-- post -->
 					<div class="post post-row">
-						<a class="post-img" href="blog-post"><img src="{{ $res->image_post }}" alt=""></a>
+						<a class="post-img" href="blog-post"><img src="img/{{ $row->image_post }}" alt=""></a>
 						<div class="post-body">
 							<div class="post-category">
 								<a href="category">Travel</a>

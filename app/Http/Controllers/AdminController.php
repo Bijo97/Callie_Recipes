@@ -93,6 +93,7 @@ class AdminController extends Controller
         //     echo "bad";
         // }
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -122,6 +123,25 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function checkImage($image){
+        
+        if($image){
+            $filename = $image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());              
+            $image_resize->resize(250, 250);
+            $img_name = "img/".$filename;
+            $image_resize->save($img_name);
+           
+            // $image_pixelate = Image::make($image->getRealPath()); 
+            // $image_pixelate->resize(250, 250);
+            // $image_pixelate->pixelate(12);
+            // $image_pixelate->save('img/'."pixelate_".$filename);
+            return $img_name;   
+        }
+    }
+
+
     public function edit_author($id_user)
     {
         $id = Auth::id();
@@ -135,8 +155,32 @@ class AdminController extends Controller
     }
 
     public function update_author(Request $request, $id)
-    {
-        $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email')]);
+    {   
+        // $a = $request->file('image_user');
+        // $img_name = checkImage($a);
+
+        if($image = $request->file('image_user')){
+            
+            // $filename = $image->getClientOriginalName();
+           $filename = uniqid().'.png';
+            $image_resize = Image::make($image->getRealPath())->encode('png', 100);  
+           
+            $image_resize->resize(100, 100);
+            
+            $width = $image_resize->getWidth();
+            $height = $image_resize->getHeight();
+            $mask = Image::canvas($width,$height); 
+            
+            $mask->circle($width, $width/2, $height/2, function ($draw) {
+                $draw->background('#fff');
+            });
+
+            $name_circle = 'circle_'.$filename;
+            $image_resize->mask($mask, false);
+            $image_resize->save('img/'.$name_circle);
+
+            $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email'),'image_user'=>$name_circle]);
+        }
     }
 
     /**
@@ -148,7 +192,23 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $row = Post::where('id_post', $id)->update(['title_post' => $request->input('title_post'), 'content_post' => $request->input('content_post')]);
+        if ($image = $request->file('image_post')) {
+            $filename = $image->getClientOriginalName();
+            $image_resize = Image::make($image->getRealPath());              
+            $image_resize->resize(250, 250);
+            $img_name = "img/".$filename;
+            $image_resize->save($img_name);
+
+            $image_pixelate = Image::make($image->getRealPath()); 
+            $image_pixelate->resize(250, 250);
+            $image_pixelate->pixelate(12);
+            $image_pixelate->save('img/'."pixelate_".$filename);
+
+            $row = Post::where('id_post', $id)->update(['title_post' => $request->input('title_post'), 'content_post' => $request->input('content_post'),'image_post'=>$filename]);
+            echo "good";
+        } else {
+            echo "bad";
+        }
     }
 
     /**

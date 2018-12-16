@@ -36,11 +36,16 @@
 										<input class="input" type="text" name="name" id="name" value="{{ $res->name }}" placeholder="Your name">
 									</div>
 								</div>
+								
                                 <div class="col-md-12">
 									<div class="form-group">
 										<input class="input" type="email" name="email" id="email" value="{{ $res->email }}" placeholder="Your email">
 									</div>
 								</div>
+								<div class="col-md-12">
+										Select image to upload:
+										<input type="file" name="imagefile" id="imagefile"><br/>
+									</div>
 								</div>
 								<button type="button" class="primary-button" onclick="updateprofile()">Update</button>
                             </div>
@@ -67,20 +72,42 @@
             var email = $('#email').val();
 			var token = $('#_token').val();
             var id_author = $('#id_author').val();
+			var file = document.getElementById('imagefile').files[0];
+			var formData = new FormData();
+			formData.append('image_user', file);
+			formData.append('name', name);
+			formData.append('email', email);
+			formData.append('_token', token);
 			// window.location.href = "insert-post";
 			$.ajax({
-				type: 'PUT',
+				type: 'POST',
 				url: '../update-author/' + id_author,
-				data: {
-					name: name,
-                    email: email,
-					_token: token
-				},
+				data: formData,
+				processData: false,
+				contentType: false,	
 				success: function(result){
 					alert("Edit Profile Success!");
 					window.location.href = "/author";
-				}
+				} 
 			});
+
+			// $.ajax({
+			// 	type: 'POST',
+			// 	url: 'insert-post',
+			// 	data: formData,
+			// 	processData: false,
+			// 	contentType: false,
+			// 	success: function(result){
+			// 		if (result == "good"){
+			// 			alert("Create Post Success!");
+			// 			window.location.href = "/author";
+			// 		} else {
+			// 			alert("Create Post Fail!");
+			// 		}
+			// 	}
+			// });
+
+
 		  }
 	</script>
 	@endsection
