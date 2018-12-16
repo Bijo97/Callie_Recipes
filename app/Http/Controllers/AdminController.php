@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
-
+use Illuminate\Database\Eloquent\Collection;
 use League\Csv\Writer;
-use League\Csv\AbstractCsv as LeagueCsvWriter;
+use Schema;
 use SplTempFileObject;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
+
+
 use App\Http\Requests;
 use App\Post;
 use App\User;
@@ -157,13 +157,30 @@ class AdminController extends Controller
         }
     }
 
-    public function exportCSV(){
-        $users = User::all(); // All users
-        $csvExporter = new \Laracsv\Export();
-        $csvExporter->build($users, ['email', 'password']);
-        $csvExporter->download('active_users.csv');
+    private function createCsv(Collection $modelCollection, $tableName){
+
+        $csv = Writer::createFromFileObject(new SplTempFileObject());
+    
+        // This creates header columns in the CSV file - probably not needed in some cases.
+        $csv->insertOne(Schema::getColumnListing($tableName));
+    
+        foreach ($modelCollection as $data){
+            $csv->insertOne($data->toArray());
+        }
+    
+        $csv->output($tableName . '.csv');
+    
     }
 
+    public function getMainMetaData(){
+
+        $mainMeta = User::all();
+    
+        // Note: $mainMeta is a Collection object 
+        //(returning a 'collection' of data from using 'all()' function), 
+        //so can be passed in below.
+        $this->createCsv($mainMeta, 'users');
+    }
     /**
      * Update the specified resource in storage.
      *

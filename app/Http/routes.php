@@ -34,7 +34,13 @@ Route::get('edit-author/{id}', 'AdminController@edit_author');
 Route::put('update-author/{id}', 'AdminController@update_author');
 Route::get('admin', 'IndexController@show_admin');
 Route::delete('delete-author/{id}', 'AdminController@delete_author');
-Route::get('export-csv', 'AdminController@exportCSV');
+Route::get(
+    '/data/download/users',
+    [
+        'as' => 'data/download/users',
+        'uses' => 'AdminController@getMainMetaData'
+    ]
+);
 
 Route::get('foo', function () {
     return 'Hello World';

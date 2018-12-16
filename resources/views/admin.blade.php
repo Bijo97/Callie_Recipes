@@ -61,7 +61,7 @@
 
 				<div class="col-md-4">
 					<h3>All Users</h3>
-					<button type="button" class="btn btn-success" id="exportcsv" onclick="exportcsv()">Export CSV</button>
+					<p><a href="{{ URL::route('data/download/users') }}" class="btn btn-lg btn-primary pull-left">Download Main Meta Data</a></p>
 					<!-- ad widget-->
 					<div class="aside-widget text-center">
                         @foreach($res3 as $row)
