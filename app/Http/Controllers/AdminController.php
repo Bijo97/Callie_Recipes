@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+
+use League\Csv\Writer;
+use League\Csv\AbstractCsv as LeagueCsvWriter;
+use SplTempFileObject;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use App\Http\Requests;
 use App\Post;
 use App\User;
@@ -149,6 +155,13 @@ class AdminController extends Controller
 
             $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email'),'image_user'=>$name_circle]);
         }
+    }
+
+    public function exportCSV(){
+        $users = User::all(); // All users
+        $csvExporter = new \Laracsv\Export();
+        $csvExporter->build($users, ['email', 'password']);
+        $csvExporter->download('active_users.csv');
     }
 
     /**
