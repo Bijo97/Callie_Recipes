@@ -31,7 +31,9 @@ Route::post('insert-post', 'AdminController@insert');
 Route::post('update-post/{id}', 'AdminController@update');
 Route::delete('delete-post/{id}', 'AdminController@delete');
 Route::get('edit-author/{id}', 'AdminController@edit_author');
-Route::post('update-author/{id}', 'AdminController@update_author');
+Route::put('update-author/{id}', 'AdminController@update_author');
+Route::get('admin', 'IndexController@show_admin');
+Route::delete('delete-author/{id}', 'AdminController@delete_author');
 
 
 Route::get('foo', function () {

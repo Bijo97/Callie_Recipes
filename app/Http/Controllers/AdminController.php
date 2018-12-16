@@ -87,7 +87,7 @@ class AdminController extends Controller
         // if ($file = $request->file('image_post')){
         //     $name = $file->getClientOriginalName();
         //     $file->move('img', $name);
-        //     // $input['your_file'] = $name;
+        //
         //     echo "good";
         // } else {
         //     echo "bad";
@@ -237,5 +237,10 @@ class AdminController extends Controller
     public function delete($id)
     {
         $row = Post::where('id_post', $id)->delete();
+    }
+
+    public function delete_author($id)
+    {
+        $row = User::where('id', $id)->delete();
     }
 }

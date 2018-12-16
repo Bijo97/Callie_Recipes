@@ -87,8 +87,6 @@
                                     <div class="dropdown-body">
                                         <ul class="dropdown-list">
                                             <li><a href="{{ url('category') }}">Category page</a></li>
-                                            <li><a href="{{ url('blog-post') }}">Post page</a></li>
-                                            <li><a href="{{ url('author') }}">Author page</a></li>
                                             <li><a href="{{ url('about') }}">About Us</a></li>
                                             <li><a href="{{ url('contact') }}">Contacts</a></li>
                                             <li><a href="{{ url('blank') }}">Regular</a></li>
@@ -292,9 +290,6 @@
                                     </div>
                                 </div>
                             </li>
-                            <li><a href="#">Technology</a></li>
-                            <li><a href="#">Health</a></li>
-                            <li><a href="#">Travel</a></li>
                         </ul>
                         <!-- /nav -->
                     </div>
@@ -316,7 +311,8 @@
                         </li>
                         <li><a href="about">About Us</a></li>
                         <li><a href="contact">Contacts</a></li>
-                        <li><a href="#">Advertise</a></li>
+                        <li><a href="login">Login</a></li>
+                        <li><a href="register">Register</a></li>
                     </ul>
                     <button class="nav-close nav-aside-close"><span></span></button>
                 </div>
