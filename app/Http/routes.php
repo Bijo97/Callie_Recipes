@@ -41,6 +41,8 @@ Route::get(
         'uses' => 'AdminController@getMainMetaData'
     ]
 );
+Route::get('pdf','PDFController@pdf'); 
+
 
 Route::get('foo', function () {
     return 'Hello World';
