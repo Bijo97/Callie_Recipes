@@ -34,12 +34,12 @@
 		<div class="container">
 			<!-- row -->
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-9">
 				<h3>All Posts</h3>
 					@foreach($res2 as $row)
 					<!-- post -->
 					<div class="post post-row">
-						<a class="post-img" href="blog-post"><img src="{{ $res->image_post }}" alt=""></a>
+						<a class="post-img" href="blog-post"><img src="img/{{ $row->image_post }}" alt=""></a>
 						<div class="post-body">
 							<div class="post-category">
 								<a href="category">Travel</a>
@@ -53,23 +53,23 @@
 							<input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
 							<a href="edit-post/{{ $row->id_post }}"><button type="button" class="primary-button">Edit</button></a>
 							<button type="button" class="primary-button" onclick="deletepost({{ $row->id_post }})">Delete</button>
+							<a href="pdf/{{ $row->id_post }}"><button type="button" class="primary-button">Export PDF</button></a>
 						</div>
 					</div>
 					<!-- /post -->
 					@endforeach
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<h3>All Users</h3>
-					<p><a href="{{ URL::route('data/download/users') }}" class="btn btn-lg btn-primary pull-left">Download Main Meta Data</a></p>
 					<!-- ad widget-->
 					<div class="aside-widget text-center">
-                        @foreach($res3 as $row)
+					<!-- <a href="{{ URL::route('data/download/users') }}" class="btn btn-lg btn-primary pull-left">Download Main Meta Data</a> -->
+					<a href="{{ url('excel_export') }}" class="btn btn-lg btn-primary pull-left">All Users Data</a>
+                        <!-- @foreach($res3 as $row)
                             {{ $row->name }}<br/>
-                            <input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
-                            <a href="edit-author/{{ $row->id }}"><button type="button" class="primary-button">Edit</button></a>
-							<button type="button" class="primary-button" onclick="deleteuser({{ $row->id }})">Delete</button><br/>
-                        @endforeach
+                            
+                        @endforeach -->
 					</div>
 					<!-- /ad widget -->
 				</div>
@@ -95,22 +95,6 @@
                 },
 				success: function(result){
 					alert("Delete Post Success!");
-					window.location.href = "admin";
-				}
-			});
-		  }
-
-          function deleteuser(id){
-            var token = $('#_token').val();
-			// window.location.href = "insert-post";
-			$.ajax({
-				type: 'DELETE',
-				url: 'delete-author/' + id,
-                data: {
-                    _token: token
-                },
-				success: function(result){
-					alert("Delete User Success!");
 					window.location.href = "admin";
 				}
 			});

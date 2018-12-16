@@ -4,21 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Users</title>
+  <title>Post</title>
   
 </head>
 <body>
-  <table>
+  <!-- <table>
     <tr>
       <th>Name</th>
       <th>Email</th>
     </tr>
-    @foreach ($users as $u)
-    <tr>
-     <td>{{$u->name}}</td>
-     <td>{{$u->email}}</td>
-    </tr>
-    @endforeach
-  </table>
+    
+  </table> -->
+  @foreach ($posts as $post)
+    <h1>{{$post->title_post}}</h1>
+    <h4>{{$post->publishdate_post}}</h4>
+    <p><img src="img/{{$post->image_post}}"></p>
+    <p>{!! $post->content_post !!}</p>
+  @endforeach
 </body>
 </html>

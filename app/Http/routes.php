@@ -31,7 +31,7 @@ Route::post('insert-post', 'BlogController@store');
 Route::post('update-post/{id}', 'BlogController@update');
 Route::delete('delete-post/{id}', 'BlogController@destroy');
 Route::get('edit-author/{id}', 'AdminController@edit_author');
-Route::put('update-author/{id}', 'AdminController@update_author');
+Route::post('update-author/{id}', 'AdminController@update_author');
 Route::get('admin', 'IndexController@show_admin');
 Route::delete('delete-author/{id}', 'AdminController@delete_author');
 Route::get(
@@ -41,7 +41,7 @@ Route::get(
         'uses' => 'AdminController@getMainMetaData'
     ]
 );
-Route::get('pdf','PDFController@pdf'); 
+Route::get('pdf/{id}','PDFController@pdf'); 
 Route::get('/excel_export','ExportExcelController@index');
 Route::get('/excel_export/excel','ExportExcelController@excel')->name(
     'export_excel.excel'
