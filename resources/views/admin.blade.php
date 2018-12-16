@@ -35,7 +35,7 @@
 			<!-- row -->
 			<div class="row">
 				<div class="col-md-8">
-                <h3>All Posts</h3>
+				<h3>All Posts</h3>
 					@foreach($res2 as $row)
 					<!-- post -->
 					<div class="post post-row">
@@ -60,7 +60,8 @@
 				</div>
 
 				<div class="col-md-4">
-                    <h3>All Users</h3>
+					<h3>All Users</h3>
+					<button type="button" class="btn btn-success" id="exportcsv" onclick="exportcsv()">Export CSV</button>
 					<!-- ad widget-->
 					<div class="aside-widget text-center">
                         @foreach($res3 as $row)
@@ -111,6 +112,17 @@
 				success: function(result){
 					alert("Delete User Success!");
 					window.location.href = "admin";
+				}
+			});
+		  }
+
+		  function exportcsv(){
+			// window.location.href = "insert-post";
+			$.ajax({
+				type: 'GET',
+				url: 'export-csv',
+				success: function(result){
+					alert("Export CSV Success!");
 				}
 			});
 		  }
