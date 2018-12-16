@@ -52,6 +52,21 @@ class IndexController extends Controller
         }
     }
 
+    public function show_admin()
+    {
+        $id = Auth::id();
+
+        if ($id != null){
+            $res = User::where("id", $id)->first();
+            $res2 = Post::join("users", "users.id", "=", "post.id_user")->orderBy('publishdate_post', 'desc')->get();
+            $res3 = User::all();
+
+            return view('admin')->with("res", $res)->with("res2", $res2)->with("res3", $res3);
+        } else {
+            return redirect('login');
+        }
+    }
+
     public function show_blank()
     {
         return view('blank');

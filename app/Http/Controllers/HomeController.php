@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use App\User;
 
@@ -24,13 +25,23 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         // $id = Auth::id();
         // $res = User::where("id", $id)->first();
 
         // return view('author')->with("res", $res);
-        return redirect('author');
+        if (Auth::check()){
+            $status = $request->user()->status;
+            // dd($status);
+            if ($status == 0){
+                return redirect('author');
+            } else {
+                return redirect('admin');
+            }
+        } else {
+            return redirect('login');
+        }
     }
     public function store(Request $request)
     {
