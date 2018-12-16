@@ -42,7 +42,10 @@ Route::get(
     ]
 );
 Route::get('pdf','PDFController@pdf'); 
-
+Route::get('/excel_export','ExportExcelController@index');
+Route::get('/excel_export/excel','ExportExcelController@excel')->name(
+    'export_excel.excel'
+);
 
 Route::get('foo', function () {
     return 'Hello World';
