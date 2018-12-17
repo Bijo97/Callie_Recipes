@@ -208,4 +208,26 @@ class AdminController extends Controller
     {
         $row = User::where('id', $id)->delete();
     }
+
+    public function delete_author_rest($id)
+    {
+        $row = User::where('id', $id)->delete();
+
+        return response()->json($row, 204);
+    }
+
+    public function update_author_rest(Request $request,$id){
+        $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email'),'image_user'=>"da"]);
+
+        return response()->json($row, 200);
+    }
+
+    public function edit_author_rest($id_user){
+        $res = User::where('id', $id_user)->first();
+        return view('rest.edit-author-rest')->with('res', $res);
+    }
+    public function show_admin_rest(){
+        $res = User::all();
+        return response()->json($res, 200);
+    }
 }

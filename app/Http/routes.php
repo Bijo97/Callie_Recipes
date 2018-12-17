@@ -67,3 +67,8 @@ Route::get('/api/blog-post/{id}', 'BlogController@show_detail_json');
 Route::post('/api/insert-post', 'BlogController@store_json');
 Route::put('/api/update-post/{id}', 'BlogController@update_json');
 Route::delete('/api/delete-post/{id}', 'BlogController@destroy_json');
+
+Route::get('/api/edit-author-rest/{id}','AdminController@edit_author_rest');
+Route::put('/api/update-author/{id}','AdminController@update_author_rest');
+Route::delete('/api/delete-author/{id}', 'AdminController@delete_author_rest');
+Route::get('api/admin-rest', 'AdminController@show_admin_rest');
