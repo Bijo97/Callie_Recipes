@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10 text-center">
-				<h1 class="text-uppercase">Edit Posts</h1>
+				<h1 class="text-uppercase">Add Posts</h1>
 				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 			</div>
 		</div>
@@ -25,29 +25,21 @@
 				<div class="col-md-12">
 					<div class="section-row">
 						<div class="section-title">
-							<h2 class="title">Edit Your Post</h2>
+							<h2 class="title">Post your recipe</h2>
 						</div>
-                        <input type="hidden" name="temp" id="temp" value="{{ $res->content_post }}" />
-					<form enctype="multipart/form-data">
-                    <input type="hidden" name="id_post" id="id_post" value="{{ $res->id_post }}" />
+					<form method="POST" action="insert-post" enctype="multipart/form-data">
 					<input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
-										<input class="input" type="text" name="title" id="title" value="{{ $res->title_post }}" placeholder="Post Title">
+										<input class="input" type="text" name="title" id="title" placeholder="Post Title">
 									</div>
 								</div>
 								<div class="col-md-12">
-									<div id="summernote" name="summernote">Post Content</div>
+									<textarea name="content" id="content" placeholder="Post Content"></textarea>
 								</div>
-								<div class="col-md-12">
-										Select image to upload:
-										<input type="file" name="imagefile" id="imagefile"><br/>
-									</div>
-								</div>
-								<button type="button" class="primary-button" onclick="updatepost()">Update</button>
-							</div>
-							
+								<button type="submit" class="primary-button">Submit</button>
+                            </div>
                             <div class="row">
                                 
                             </div>
@@ -67,36 +59,29 @@
 	<script>
 		$(document).ready(function() {
 			$('#summernote').summernote();
-            $('.note-editable').html($('#temp').val());
 		  });
 		  
-		  function updatepost(){
+		  function insertpost(){
 			// var markupStr =$(".summernote").summernote("code");
 			var title = $('#title').val();
 			var content = $('.note-editable').html();
 			console.log(content);
 			var token = $('#_token').val();
-            var id_post = $('#id_post').val();
 			// window.location.href = "insert-post";
-			var file = document.getElementById('imagefile').files[0];
 			var formData = new FormData();
-			formData.append('image_post', file);
 			formData.append('title_post', title);
 			formData.append('content_post', content);
 			formData.append('_token', token);
+
 			$.ajax({
 				type: 'POST',
-				url: '../update-post/'+id_post,
+				url: 'insert-post',
 				data: formData,
 				processData: false,
 				contentType: false,
 				success: function(result){
-					if (result == "good"){
-						alert("Update Post Success!");
-						window.location.href = "/author";
-					} else {
-						alert("Create Post Fail!");
-					}
+					alert(result);
+					window.location.href = "/api/add-post-rest";
 				}
 			});
 		  }

@@ -195,4 +195,63 @@ class BlogController extends Controller
     {
         $row = Post::where('id_post', $id)->delete();
     }
+
+    public function add_post_rest(){
+        return view('rest.add-post-rest');
+    }
+
+    public function edit_post_rest($id){
+        $res = Post::where('id_post', $id)->first();
+
+        return view('rest.edit-post-rest')->with("res", $res);
+    }
+
+    public function show_json()
+    {
+        // $res = Post::where('id_post', $id)->first();
+        $res = Post::all();
+
+        return response()->json($res, 200);
+    }
+
+    public function show_detail_json($id)
+    {
+        // $res = Post::where('id_post', $id)->first();
+        $res = Post::where('id_post', $id)->first();
+
+        return response()->json($res, 200);
+    }
+
+    public function store_json(Request $request)
+    {
+        $id = Post::max("id_post");
+        $row = new Post;
+        $row->id_post = $id + 1;
+        $row->id_user = 1;
+        $row->id_tags = 2;
+        $row->id_category = 9;
+        $row->title_post = $request->input("title");
+        $row->content_post = $request->input("content");
+        $row->image_post = "da";
+        $row->publishdate_post = date("Y-m-d");
+        $row->totalview_post = 0;
+        // $row->fill($request->all());
+        $row->save();
+
+        return response()->json($row, 201);
+    }
+
+    public function update_json(Request $request, $id)
+    {
+        $row = Post::where('id_post', $id)->update(['title_post' => $request->input('title'), 'content_post' => $request->input('content'),'image_post'=>"da"]);
+        
+        return response()->json($row, 200);
+    }
+
+    public function destroy_json($id)
+    {
+        $row = Post::where('id_post', $id)->delete();
+
+        return response()->json($row, 204);
+    }
 }

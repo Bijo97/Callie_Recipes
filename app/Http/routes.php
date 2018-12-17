@@ -59,3 +59,11 @@ Route::get('foo', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/api/add-post-rest', 'BlogController@add_post_rest');
+Route::get('/api/edit-post-rest/{id}', 'BlogController@edit_post_rest');
+Route::get('/api/blog-post', 'BlogController@show_json');
+Route::get('/api/blog-post/{id}', 'BlogController@show_detail_json');
+Route::post('/api/insert-post', 'BlogController@store_json');
+Route::put('/api/update-post/{id}', 'BlogController@update_json');
+Route::delete('/api/delete-post/{id}', 'BlogController@destroy_json');

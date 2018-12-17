@@ -28,7 +28,8 @@
 							<h2 class="title">Edit Your Post</h2>
 						</div>
                         <input type="hidden" name="temp" id="temp" value="{{ $res->content_post }}" />
-					<form enctype="multipart/form-data">
+					<form method="POST" action="../update-post/{{ $res->id_post }}">
+                    <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="id_post" id="id_post" value="{{ $res->id_post }}" />
 					<input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
 							<div class="row">
@@ -38,19 +39,21 @@
 									</div>
 								</div>
 								<div class="col-md-12">
-									<div id="summernote" name="summernote">Post Content</div>
+									<textarea name="content" id="content" placeholder="Post Content">{{ $res->content_post }}</textarea>
 								</div>
-								<div class="col-md-12">
-										Select image to upload:
-										<input type="file" name="imagefile" id="imagefile"><br/>
-									</div>
-								</div>
-								<button type="button" class="primary-button" onclick="updatepost()">Update</button>
+								<button type="submit" class="primary-button">Update</button>
 							</div>
 							
                             <div class="row">
                                 
                             </div>
+						</form>
+                    <form method="POST" action="../delete-post/{{ $res->id_post }}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="id_post" id="id_post" value="{{ $res->id_post }}" />
+					<input type="hidden" name="_token" id="_token" value="{{ csrf_token() }}" />
+								<button type="submit" class="primary-button">Delete</button>
+							</div>
 						</form>
 					</div>
 				</div>
