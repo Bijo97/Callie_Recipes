@@ -70,5 +70,6 @@ Route::delete('/api/delete-post/{id}', 'BlogController@destroy_json');
 
 Route::get('/api/edit-author-rest/{id}','AdminController@edit_author_rest');
 Route::put('/api/update-author/{id}','AdminController@update_author_rest');
-Route::delete('/api/delete-author/{id}', 'AdminController@delete_author_rest');
-Route::get('api/admin-rest', 'AdminController@show_admin_rest');
+Route::delete('/api/delete-user/{id}', 'AdminController@delete_user_rest');
+Route::get('/api/admin-rest', 'AdminController@show_admin_rest');
+Route::get('/api/excel-export','ExportExcelController@show_excel');

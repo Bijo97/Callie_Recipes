@@ -31,4 +31,8 @@ class ExportExcelController extends Controller
             });
         })->download('xlsx');
     }
+    function show_excel(){
+        $user_data = DB::table('users')->get();
+        return view('rest.excel-export-rest')->with('user_data',$user_data);
+    }   
 }

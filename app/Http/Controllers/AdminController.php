@@ -209,7 +209,7 @@ class AdminController extends Controller
         $row = User::where('id', $id)->delete();
     }
 
-    public function delete_author_rest($id)
+    public function delete_user_rest($id)
     {
         $row = User::where('id', $id)->delete();
 
