@@ -311,8 +311,19 @@
                         </li>
                         <li><a href="about">About Us</a></li>
                         <li><a href="contact">Contacts</a></li>
-                        <li><a href="login">Login</a></li>
-                        <li><a href="register">Register</a></li>
+                        @if(Auth::check())
+                            @if(Auth::user()->status === 1)
+                                <li><a href="admin">Admin Panel</a></li>
+                                <li><a href="author">Profile</a></li>
+                                <li><a href="logout">Logout</a></li>
+                            @else
+                                <li><a href="author">Profile</a></li>
+                                <li><a href="logout">Logout</a></li>
+                            @endif
+                        @else
+                            <li><a href="login">Login</a></li>
+                            <li><a href="register">Register</a></li>
+                        @endif
                     </ul>
                     <button class="nav-close nav-aside-close"><span></span></button>
                 </div>
