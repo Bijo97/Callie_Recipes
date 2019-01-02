@@ -209,6 +209,24 @@ class AdminController extends Controller
         $row = User::where('id', $id)->delete();
     }
 
+    /**
+     * @SWG\Delete(
+     *   path="/delete-user/{id}",
+     *   description="Delete selected author's data",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Author ID",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=204, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function delete_user_rest($id)
     {
         $row = User::where('id', $id)->delete();
@@ -216,16 +234,76 @@ class AdminController extends Controller
         return response()->json($row, 204);
     }
 
+    /**
+     * @SWG\Put(
+     *   path="/update-author/{id}",
+     *   description="Update selected author's data",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Author ID",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="Author",
+     *     in="body",
+     *     description="Author's Data",
+     *     required=true,
+     *     type="string",
+     *     @SWG\Schema(
+     *         type="object",
+     *         @SWG\Property(property="name", type="string"),
+     *         @SWG\Property(property="email", type="string")
+     *     )
+     *   ),
+     *   @SWG\Response(response=200, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function update_author_rest(Request $request,$id){
         $row = User::where('id', $id)->update(['name' => $request->input('name'), 'email' => $request->input('email'),'image_user'=>"da"]);
 
         return response()->json($row, 200);
     }
 
+    /**
+     * @SWG\Get(
+     *   path="/edit-author-rest/{id}",
+     *   description="Return edit admin page view",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Author ID",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=200, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function edit_author_rest($id_user){
         $res = User::where('id', $id_user)->first();
         return view('rest.edit-author-rest')->with('res', $res);
     }
+
+    /**
+     * @SWG\Get(
+     *   path="/admin-rest",
+     *   description="Return admin page view",
+     *   @SWG\Response(response=200, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function show_admin_rest(){
         $res = User::all();
         return response()->json($res, 200);

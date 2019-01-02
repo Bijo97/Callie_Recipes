@@ -162,6 +162,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         //Excel
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        //Swagger
+        L5Swagger\L5SwaggerServiceProvider::class,
     ],
 
     /*

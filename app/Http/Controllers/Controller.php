@@ -10,5 +10,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 
 class Controller extends BaseController
 {
+    /**
+     * @SWG\Swagger(
+     *   basePath="/api",
+     *   @SWG\Info(
+     *     title="API for users and contents",
+     *     version="1.0.0"
+     *   )
+     * )
+     */
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 }
