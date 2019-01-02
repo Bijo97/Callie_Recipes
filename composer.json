@@ -11,7 +11,8 @@
         "usmanhalalit/laracsv": "1.*@dev",
         "league/csv": "^8.2",
         "barryvdh/laravel-dompdf": "^0.8.2",
-        "maatwebsite/excel": "^2.1"
+        "maatwebsite/excel": "^2.1",
+        "darkaonline/l5-swagger": "~3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

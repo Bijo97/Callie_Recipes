@@ -31,6 +31,18 @@ class ExportExcelController extends Controller
             });
         })->download('xlsx');
     }
+
+    /**
+     * @SWG\Get(
+     *   path="/excel-export",
+     *   description="Return excel report page view",
+     *   @SWG\Response(response=200, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     function show_excel(){
         $user_data = DB::table('users')->get();
         return view('rest.excel-export-rest')->with('user_data',$user_data);
