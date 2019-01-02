@@ -308,4 +308,46 @@ class AdminController extends Controller
         $res = User::all();
         return response()->json($res, 200);
     }
+
+    /**
+     * @SWG\Post(
+     *   path="/insert-author",
+     *   description="Insert a new author",
+     *   @SWG\Parameter(
+     *     name="Author",
+     *     in="body",
+     *     description="Author's Data",
+     *     required=true,
+     *     type="string",
+     *     @SWG\Schema(
+     *         type="object",
+     *         @SWG\Property(property="name", type="string"),
+     *         @SWG\Property(property="email", type="string"),
+     *         @SWG\Property(property="password", type="string")
+     *     )
+     *   ),
+     *   @SWG\Response(response=201, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
+    public function store_admin_rest(Request $request){
+        $id = User::max("id");
+        $row = new User;
+        $row->id = $id + 1;
+        $row->name = $request->input("name");
+        $row->email = $request->input("email");
+        $row->password = bcrypt($request->input("password"));
+        $row->remember_token = "abcdefg";
+        $row->created_at = date("Y-m-d H:i:s");
+        $row->updated_at = date("Y-m-d H:i:s");
+        $row->image_user = "da";
+        $row->status = 2;
+        // $row->fill($request->all());
+        $row->save();
+
+        return response()->json($row, 201);
+    }
 }

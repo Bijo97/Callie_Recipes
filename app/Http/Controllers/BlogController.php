@@ -196,16 +196,56 @@ class BlogController extends Controller
         $row = Post::where('id_post', $id)->delete();
     }
 
+    /**
+     * @SWG\Get(
+     *   path="/add-post-rest",
+     *   description="Return add post page view",
+     *   @SWG\Response(response=200, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function add_post_rest(){
         return view('rest.add-post-rest');
     }
 
+    /**
+     * @SWG\Get(
+     *   path="/edit-post-rest/{id}",
+     *   description="Return edit post page view",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Post ID",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=200, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function edit_post_rest($id){
         $res = Post::where('id_post', $id)->first();
 
         return view('rest.edit-post-rest')->with("res", $res);
     }
 
+    /**
+     * @SWG\Get(
+     *   path="/blog-post",
+     *   description="Return all posts page view",
+     *   @SWG\Response(response=200, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function show_json()
     {
         // $res = Post::where('id_post', $id)->first();
@@ -214,6 +254,24 @@ class BlogController extends Controller
         return response()->json($res, 200);
     }
 
+    /**
+     * @SWG\Get(
+     *   path="/blog-post/{id}",
+     *   description="Return selected post page view",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Post ID",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=200, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function show_detail_json($id)
     {
         // $res = Post::where('id_post', $id)->first();
@@ -222,6 +280,29 @@ class BlogController extends Controller
         return response()->json($res, 200);
     }
 
+    /**
+     * @SWG\Post(
+     *   path="/insert-post",
+     *   description="Insert a new post",
+     *   @SWG\Parameter(
+     *     name="Post",
+     *     in="body",
+     *     description="Post's Content",
+     *     required=true,
+     *     type="string",
+     *     @SWG\Schema(
+     *         type="object",
+     *         @SWG\Property(property="title", type="string"),
+     *         @SWG\Property(property="content", type="string")
+     *     )
+     *   ),
+     *   @SWG\Response(response=201, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function store_json(Request $request)
     {
         $id = Post::max("id_post");
@@ -241,6 +322,36 @@ class BlogController extends Controller
         return response()->json($row, 201);
     }
 
+    /**
+     * @SWG\Put(
+     *   path="/update-post/{id}",
+     *   description="Update selected post's content",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Post ID",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Parameter(
+     *     name="Author",
+     *     in="body",
+     *     description="Author's Data",
+     *     required=true,
+     *     type="string",
+     *     @SWG\Schema(
+     *         type="object",
+     *         @SWG\Property(property="title", type="string"),
+     *         @SWG\Property(property="content", type="string")
+     *     )
+     *   ),
+     *   @SWG\Response(response=200, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function update_json(Request $request, $id)
     {
         $row = Post::where('id_post', $id)->update(['title_post' => $request->input('title'), 'content_post' => $request->input('content'),'image_post'=>"da"]);
@@ -248,6 +359,24 @@ class BlogController extends Controller
         return response()->json($row, 200);
     }
 
+    /**
+     * @SWG\Delete(
+     *   path="/delete-post/{id}",
+     *   description="Delete selected post's content",
+     *   @SWG\Parameter(
+     *     name="id",
+     *     in="path",
+     *     description="Post ID",
+     *     required=true,
+     *     type="integer"
+     *   ),
+     *   @SWG\Response(response=204, description="Successful"),
+     *   @SWG\Response(response=404, description="Not Found"),
+     *   @SWG\Response(response=406, description="Unacceptable"),
+     *   @SWG\Response(response=500, description="Internal Server Error")
+     * )
+     *
+     */
     public function destroy_json($id)
     {
         $row = Post::where('id_post', $id)->delete();
