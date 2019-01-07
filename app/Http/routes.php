@@ -20,7 +20,8 @@ Route::get('blog-post','BlogController@index');
 Route::get('blog-post/{id}','BlogController@getPost');
 Route::get('author','IndexController@show_author');
 Route::get('about','IndexController@show_about');
-Route::get('contact','IndexController@show_contact');
+Route::get('contact','ContactController@Index');
+Route::post('contact','ContactController@post_contact');
 Route::get('blank','IndexController@show_blank');
 Route::get('category','CategoryController@index');
 Route::get('add-post','BlogController@show_add_post');
@@ -74,6 +75,7 @@ Route::delete('/api/delete-user/{id}', 'AdminController@delete_user_rest');
 Route::get('/api/admin-rest', 'AdminController@show_admin_rest');
 Route::get('/api/excel-export','ExportExcelController@show_excel');
 
+Route::post('/blank','BlankController@index');
 
 Route::post('/tags/fetch','TagsController@fetch')->name('tags.fetch');
 

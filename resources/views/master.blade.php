@@ -53,7 +53,7 @@
     
                         <!-- logo -->
                         <div class="nav-logo">
-                            <a href="index" class="logo"><img src="./img/logo.png" alt=""></a>
+                            <a href="/" class="logo"><img src="./img/logo.png" alt=""></a>
                         </div>
                         <!-- /logo -->
     

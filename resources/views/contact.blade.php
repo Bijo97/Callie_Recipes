@@ -39,23 +39,24 @@
 						<div class="section-title">
 							<h2 class="title">Mail us</h2>
 						</div>
-						<form>
+						<form action="{{ url('contact') }}" method="POST">
+							{{  csrf_field() }}
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
-										<input class="input" type="email" name="email" placeholder="Email">
+										<input class="input" type="email" id="email" name="email" placeholder="Email">
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<input class="input" type="text" name="subject" placeholder="Subject">
+										<input class="input" type="text" id="subject" name="subject" placeholder="Subject">
 									</div>
 								</div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<textarea class="input" name="message" placeholder="Message"></textarea>
+										<textarea class="input" name="message" id="message" placeholder="Message"></textarea>
 									</div>
-									<button class="primary-button">Submit</button>
+									<button type="submit" class="primary-button">Submit</button>
 								</div>
 							</div>
 						</form>
