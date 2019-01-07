@@ -39,16 +39,30 @@
 									<div id="summernote" name="summernote">Post Content</div>
 								</div>
 								<div class="col-md-12">
+									
+								</div>
+								<div class="col-md-12">
 									Select image to upload:
 									<input type="file" name="imagefile" id="imagefile"><br/>
 								</div>
+
 								<button type="button" class="primary-button" onclick="insertpost()">Submit</button>
                             </div>
                             <div class="row">
                                 
                             </div>
 						</form>
+						<div class="form-group">
+								<input type="text" name="tags" id="tags" class="form-control input-lg" placeholder="Enter Tag" />
+								<div id="tagsList">
+								</div>
+							   </div>
+							   {{ csrf_field() }}
 					</div>
+					<fieldset id="tagsform">
+							<legend>Add your tags!</legend>
+					</fieldset>
+					<input type="button" value="Add a field" class="add" id="add" />
 				</div>
 				
 			</div>
@@ -60,11 +74,89 @@
 	@endsection
 
 	@section('js')
+	<style>
+	fieldset
+	{
+		border: solid 1px #000;
+		padding:10px;
+		display:block;
+		clear:both;
+		margin:5px 0px;
+	}
+	legend
+	{
+		padding:0px 10px;
+		background:black;
+		color:#FFF;
+	}
+	input.add
+	{
+		float:right;
+	}
+	input.fieldname
+	{
+		float:left;
+		clear:left;
+		display:block;
+		margin:5px;
+	}
+	select.fieldtype
+	{
+		float:left;
+		display:block;
+		margin:5px;
+	}
+	input.remove
+	{
+		float:left;
+		display:block;
+		margin:5px;
+	}
+	</style>
 	<script>
 		$(document).ready(function() {
-			$('#summernote').summernote();
+			summernote();
+			$("#add").click(function() {
+				var lastField = $("#tagsform div:last");
+				var intId = (lastField && lastField.length && lastField.data("idx") + 1) || 1;
+				var fieldWrapper = $("<div class=\"form-group\" id=\"form" + intId + "\" name=\"form"+ intId + "\"/>");
+				fieldWrapper.data("idx", intId);
+				var fName = $("<input type=\"text\" class=\"fieldname\" />");
+				var removeButton = $("<input type=\"button\" class=\"remove\" value=\"-\" />");
+				removeButton.click(function() {
+					$(this).parent().remove();
+				});
+				fieldWrapper.append(fName);
+				fieldWrapper.append(removeButton);
+				$("#tagsform").append(fieldWrapper);
+			});
+			$('#tags').keyup(function(){ 
+					var query = $(this).val();
+					if(query != '')
+					{
+					var _token = $('input[name="_token"]').val();
+					$.ajax({
+					url:"{{ route('tags.fetch') }}",
+					method:"POST",
+					data:{query:query, _token:_token},
+					success:function(data){
+					$('#tagsList').fadeIn();  
+						$('#tagsList').html(data);
+					}
+					});
+					}
+				});
+
+				$(document).on('click', 'li', function(){  
+					$('#tags').val($(this).text());  
+					$('#tagsList').fadeOut();  
+				});  
 		  });
-		  
+		 
+		  function summernote(){
+			$('#summernote').summernote();
+		  }
+		
 		  function insertpost(){
 			// var markupStr =$(".summernote").summernote("code");
 			var title = $('#title').val();
