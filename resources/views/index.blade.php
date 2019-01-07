@@ -26,6 +26,7 @@
 					</div>
 					<!-- /post -->
 				</div>
+
 				<div class="col-md-4 hot-post-right">
 					<!-- post -->
 					<div class="post post-thumb">
@@ -81,81 +82,27 @@
 								<h2 class="title">Recent posts</h2>
 							</div>
 						</div>
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post"><img src="./img/post-1.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-category">
-										<a href="category">Travel</a>
+						
+						<div class="row">
+						@foreach($res as $row)
+							<div class="col-md-6">
+								<div class="post">
+									<a class="post-img" href="blog-post/{{ $row->id_post }}"><img src="img/{{ $row->image_post }}" alt=""></a>
+									<div class="post-body">
+										<div class="post-category">
+											<a href="category">Lifestyle</a>
+										</div>
+										<h3 class="post-title"><a href="blog-post/{{ $row->id_post }}">{{ $row->title_post }}</a></h3>
+										<ul class="post-meta">
+											<li><a href="author">{{ $row->name }}</a></li>
+											<li>{{ $row->publishdate }}</li>
+										</ul>
 									</div>
-									<h3 class="post-title"><a href="blog-post">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-									<ul class="post-meta">
-										<li><a href="author">John Doe</a></li>
-										<li>20 April 2018</li>
-									</ul>
 								</div>
 							</div>
-						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post"><img src="./img/post-2.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-category">
-										<a href="category">Technology</a>
-										<a href="category">Lifestyle</a>
-									</div>
-									<h3 class="post-title"><a href="blog-post">Ne bonorum praesent cum, labitur persequeris definitionem quo cu?</a></h3>
-									<ul class="post-meta">
-										<li><a href="author">John Doe</a></li>
-										<li>20 April 2018</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<div class="clearfix visible-md visible-lg"></div>
-
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post"><img src="./img/post-4.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-category">
-										<a href="category">Health</a>
-									</div>
-									<h3 class="post-title"><a href="blog-post">Postea senserit id eos, vivendo periculis ei qui</a></h3>
-									<ul class="post-meta">
-										<li><a href="author">John Doe</a></li>
-										<li>20 April 2018</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post"><img src="./img/post-7.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-category">
-										<a href="category">Health</a>
-										<a href="category">Lifestyle</a>
-									</div>
-									<h3 class="post-title"><a href="blog-post">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
-									<ul class="post-meta">
-										<li><a href="author">John Doe</a></li>
-										<li>20 April 2018</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
+						@endforeach
+					</div>
+					
 					</div>
 					<!-- /row -->
 
