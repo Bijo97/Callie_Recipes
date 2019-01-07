@@ -18,7 +18,8 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $res = Post::join('users', 'post.id_user', '=', 'users.id')->select('post.*', 'users.name')->get();
+        return view('index')->with("res", $res);
     }
 
     /**
