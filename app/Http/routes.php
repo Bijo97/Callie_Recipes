@@ -73,3 +73,5 @@ Route::put('/api/update-author/{id}','AdminController@update_author_rest');
 Route::delete('/api/delete-user/{id}', 'AdminController@delete_user_rest');
 Route::get('/api/admin-rest', 'AdminController@show_admin_rest');
 Route::get('/api/excel-export','ExportExcelController@show_excel');
+
+Route::post('/tags/fetch','TagsController@fetch')->name('tags.fetch');

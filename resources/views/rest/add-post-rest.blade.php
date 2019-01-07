@@ -38,6 +38,12 @@
 								<div class="col-md-12">
 									<textarea name="content" id="content" placeholder="Post Content"></textarea>
 								</div>
+								<div class="col-md-12">
+									<input type="text" name="tags" id="tags" placeholder="Enter tags">
+									<div id="tagsList"></div>
+									{{!! csrf_field() !!}}
+								</div>
+								
 								<button type="submit" class="primary-button">Submit</button>
                             </div>
                             <div class="row">
@@ -59,6 +65,23 @@
 	<script>
 		$(document).ready(function() {
 			$('#summernote').summernote();
+
+			$('#tags').keyup(function()){
+				var query = $(this).val();
+				if(query != ''){
+					var token = $('#_token').val();
+					$.ajax({
+						url:"{route('tags.fetch')}",
+						method:"POST",
+						data:{query:query, _token:_token},
+						success:function(data){
+							$('#tagsList').fadeIn();
+							$('#tagsList').html(data);
+						}
+					})
+				}
+				
+			}
 		  });
 		  
 		  function insertpost(){
