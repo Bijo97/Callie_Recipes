@@ -299,15 +299,8 @@
                 <!-- Aside Nav -->
                 <div id="nav-aside">
                     <ul class="nav-aside-menu">
-                        <li><a href="index">Home</a></li>
-                        <li class="has-dropdown"><a>Categories</a>
-                            <ul class="dropdown">
-                                <li><a href="#">Lifestyle</a></li>
-                                <li><a href="#">Fashion</a></li>
-                                <li><a href="#">Technology</a></li>
-                                <li><a href="#">Travel</a></li>
-                                <li><a href="#">Health</a></li>
-                            </ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="category">Categories</a>
                         </li>
                         <li><a href="about">About Us</a></li>
                         <li><a href="contact">Contacts</a></li>
