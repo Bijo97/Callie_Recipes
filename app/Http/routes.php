@@ -74,4 +74,8 @@ Route::delete('/api/delete-user/{id}', 'AdminController@delete_user_rest');
 Route::get('/api/admin-rest', 'AdminController@show_admin_rest');
 Route::get('/api/excel-export','ExportExcelController@show_excel');
 
+
 Route::post('/tags/fetch','TagsController@fetch')->name('tags.fetch');
+
+Route::post('/api/insert-author', 'AdminController@store_admin_rest');
+

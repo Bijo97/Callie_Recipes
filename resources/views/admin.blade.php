@@ -7,7 +7,7 @@
 		<div class="row">
 			<div class="col-md-offset-1 col-md-10 text-center">
 				<div class="author">
-					<img class="author-img center-block" src="./img/avatar-2.jpg" alt="">
+					<img class="author-img center-block" src="img/{{ $res->image_user }}" alt="">
 					<h1 class="text-uppercase">{{ $res->name }}</h1>
 					<p class="lead">{{ $res->email }}</p>
 					<ul class="author-social">
