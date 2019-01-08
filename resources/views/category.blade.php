@@ -288,7 +288,7 @@
 					<!-- /category widget -->
 
 					<!-- newsletter widget -->
-					<div class="aside-widget">
+					<!-- <div class="aside-widget">
 						<div class="section-title">
 							<h2 class="title">Newsletter</h2>
 						</div>
@@ -299,7 +299,7 @@
 								<button class="primary-button">Subscribe</button>
 							</form>
 						</div>
-					</div>
+					</div> -->
 					<!-- /newsletter widget -->
 
 					<!-- post widget -->
